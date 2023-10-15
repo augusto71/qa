@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>Fazer uma pergunta</title>
+	</head>
+	<body>
+		<form method="post">
+			{% csrf_token %}
+			<input type="text" name="title" placeholder="Título">
+			<textarea name="description" placeholder="Descrição"></textarea>
+			<input type="submit" value="Publicar">
+		</form>
+	</body>
+</html>

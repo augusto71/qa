@@ -1,0 +1,47 @@
+{% load static %}
+{% load user_profile_photo %}
+
+<!doctype html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="{% static 'css/question.css' %}">
+
+		<title>{{ question.title }}</title>
+	</head>
+	<body>
+		<div>
+			<div>
+				<img id="question_creator_profile" src="{% get_user_profile_photo question.user.id %}">
+				{{ question.user.username }}
+			</div>
+			<h2>{{ question.title }}</h2>
+		</div>
+		<div>
+			<pre>{{ question.description }}</pre>
+		</div>
+		
+		{% if answers %}
+			<div>
+				{% for answer in answers %}
+					<div>
+						<img class="answer_creator_profile" src="{% get_user_profile_photo answer.user.id %}">
+						{{ answer.user.username }}
+					</div>
+					<div>
+						<pre>{{ answer.text }}</pre>
+					</div>
+				{% endfor %}
+			</div>
+		{% endif %}
+
+		{% if response_form %}
+			<form method="post">
+				{% csrf_token %}
+				<textarea name="text" placeholder="Escreva uma resposta."></textarea>
+				<input type="submit" value="Publicar">
+			</form>
+		{% endif %}
+	</body>
+</html>

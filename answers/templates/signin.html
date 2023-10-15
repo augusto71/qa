@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+ <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrar</title>
+ </head>
+ <body>
+  <form method="post">
+   {% csrf_token %}
+   <input type="text" name="username" placeholder="Nome de usuário">
+   <input type="password" name="password" placeholder="Senha">
+   <input type="submit" value="Entrar">
+  </form>
+ </body>
+</html>

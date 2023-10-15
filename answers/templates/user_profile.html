@@ -1,0 +1,16 @@
+{% load static %}
+
+<!doctype html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>{{ user_profile.user.username }}</title>
+
+		<link rel="stylesheet" href="{% static 'css/index.css' %}">
+	</head>
+	<body>
+		<img id="profile_picture" src="{{ user_profile.image.url }}">
+		<span>{{ user_profile.user.username }}</span>
+	</body>
+</html>
