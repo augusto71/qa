@@ -9,12 +9,23 @@
         <li class="nav-item">
           <a class="nav-link" aria-current="page" href="/">Página inicial</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/user/{{ request.user.username }}">Seu perfil</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/ask">Perguntar</a>
-        </li>
+        
+        {% if request.user.is_authenticated %}
+	        <li class="nav-item">
+	          <a class="nav-link" href="/user/{{ request.user.username }}">Seu perfil</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="/ask">Perguntar</a>
+	        </li>
+        {% else %}
+        	<li class="nav-item">
+        		<a class="nav-link" href="/signup">Criar conta</a>
+        	</li>
+        	<li class="nav-item">
+        		<a class="nav-link" href="/signin">Fazer login</a>
+        	</li>
+        {% endif %}
+        
       </ul>
     </div>
   </div>
