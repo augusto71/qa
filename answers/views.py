@@ -83,7 +83,10 @@ def ask(request):
 
 		return redirect('/question/' + str(q.id))
 	else:
-		return render(request, 'ask.html')
+		if request.user.is_authenticated:
+			return render(request, 'ask.html')
+		else:
+			return HttpResponse('<a href="/signin">Faça login</a> para fazer uma pergunta.')
 
 def question(request, qid):
 
