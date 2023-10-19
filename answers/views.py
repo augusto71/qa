@@ -40,6 +40,12 @@ def signup(request):
 		if len(email) < min_email_length or len(email) > max_email_length:
 			return HttpResponse('Email com menos de %d caracteres ou mais de %d caracteres.' % (min_email_length, max_email_length))
 
+		''' verifica se o tamanho da senha é válido. '''
+		max_password_length = User._meta.get_field('password').max_length
+
+		if not password or len(password) > max_password_length:
+			return HttpResponse('Senha vazia ou com mais de %d caracteres.' % (max_password_length))
+
 		user = User.objects.create_user(username, email, password)
 
 		UserProfile.objects.create(user=user)
