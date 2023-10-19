@@ -92,6 +92,12 @@ def question(request, qid):
 
 	if request.method == 'POST':
 		text = request.POST.get('text')
+
+		''' verifica se o tamanho da resposta é válido. '''
+		max_answer_length = Answer._meta.get_field('text').max_length
+		if not text or len(text) > max_answer_length:
+			return HttpResponse('Resposta vazia ou com mais de %d caracteres.' % (max_answer_length))
+
 		a = Answer.objects.create(user=request.user, question=q, text=text)
 		return HttpResponse('Pergunta respondida com sucesso.')
 	else:
