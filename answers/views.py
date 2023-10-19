@@ -46,6 +46,11 @@ def ask(request):
 		title = request.POST.get('title')
 		description = request.POST.get('description')
 
+		''' verifica se o tamanho do título da pergunta é válido. '''
+		max_question_size = Question._meta.get_field('title').max_length
+		if not title or len(title) > max_question_size:
+			return HttpResponse('Título vazio ou grande demais (mais de %d caracteres).' % (max_question_size))
+
 		''' adiciona um ponto de interrogação na pergunta se não houver. '''
 		if title.strip()[-1] != '?':
 			title += '?'
