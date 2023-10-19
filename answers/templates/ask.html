@@ -13,7 +13,7 @@
 
 		<form method="post">
 			{% csrf_token %}
-			<input type="text" name="title" placeholder="Título" maxlength="150">
+			<input type="text" name="title" placeholder="Título" maxlength="150" required="required">
 			<textarea name="description" placeholder="Descrição" maxlength="4000"></textarea>
 			<input type="submit" value="Publicar">
 		</form>
