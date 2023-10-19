@@ -7,7 +7,7 @@
  <body>
   <form method="post">
    {% csrf_token %}
-   <input type="text" name="username" placeholder="Nome de usuário">
+   <input type="text" name="username" placeholder="Nome de usuário" maxlength="150" required="required">
    <input type="email" name="email" placeholder="Email">
    <input type="password" name="password" placeholder="Senha">
    <input type="submit" value="Criar conta">

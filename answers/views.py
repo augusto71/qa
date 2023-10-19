@@ -27,6 +27,12 @@ def signup(request):
 		username = request.POST.get('username')
 		email = request.POST.get('email')
 		password = request.POST.get('password')
+
+		''' verifica se o tamanho do nome de usuário é válido. '''
+		max_username_length = User._meta.get_field('username').max_length
+		if not username or len(username) > max_username_length:
+			return HttpResponse('Nome de usuário vazio ou com mais de %d caracteres.' % (max_username_length))
+
 		user = User.objects.create_user(username, email, password)
 
 		UserProfile.objects.create(user=user)
