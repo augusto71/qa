@@ -49,6 +49,10 @@ def ask(request):
 		title = request.POST.get('title')
 		description = request.POST.get('description')
 
+		''' adiciona um ponto de interrogação na pergunta se não houver. '''
+		if title.strip()[-1] != '?':
+			title += '?'
+
 		q = Question.objects.create(user=request.user, title=title, description=description)
 
 		from django.http import HttpResponse
