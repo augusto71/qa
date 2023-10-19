@@ -51,6 +51,11 @@ def ask(request):
 		if not title or len(title) > max_question_size:
 			return HttpResponse('Título vazio ou grande demais (mais de %d caracteres).' % (max_question_size))
 
+		''' verifica se o tamanho da descrição da pergunta é válido. '''
+		max_description_size = Question._meta.get_field('description').max_length
+		if len(description) > max_description_size:
+			return HttpResponse('Descrição com mais de %d caracteres.' % (max_description_size))
+
 		''' adiciona um ponto de interrogação na pergunta se não houver. '''
 		if title.strip()[-1] != '?':
 			title += '?'
