@@ -58,7 +58,7 @@ def signup(request):
 
 def logout(request):
 	django_logout(request)
-	return HttpResponse('Desconectado com sucesso.')
+	return redirect('/')
 
 def ask(request):
 	if request.method == 'POST':
