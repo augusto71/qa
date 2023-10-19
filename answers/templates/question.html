@@ -44,7 +44,7 @@
 			{% if response_form %}
 				<form method="post">
 					{% csrf_token %}
-					<textarea name="text" placeholder="Escreva uma resposta." maxlength="4000"></textarea>
+					<textarea name="text" placeholder="Escreva uma resposta." maxlength="4000" required="required"></textarea>
 					<input type="submit" value="Publicar">
 				</form>
 			{% endif %}
