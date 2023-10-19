@@ -33,6 +33,13 @@ def signup(request):
 		if not username or len(username) > max_username_length:
 			return HttpResponse('Nome de usuário vazio ou com mais de %d caracteres.' % (max_username_length))
 
+		''' verifica se o tamanho do email é válido. '''
+		max_email_length = User._meta.get_field('email').max_length
+		min_email_length = 3
+
+		if len(email) < min_email_length or len(email) > max_email_length:
+			return HttpResponse('Email com menos de %d caracteres ou mais de %d caracteres.' % (min_email_length, max_email_length))
+
 		user = User.objects.create_user(username, email, password)
 
 		UserProfile.objects.create(user=user)
