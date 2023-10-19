@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.models import User
@@ -15,10 +16,8 @@ def signin(request):
 		user = authenticate(request, username=username, password=password)
 		if user is not None:
 			login(request, user)
-			from django.http import HttpResponse
 			return HttpResponse('Login efetuado com sucesso.')
 		else:
-			from django.http import HttpResponse
 			return HttpResponse('Dados de login incorretos.')
 	else:
 		return render(request, 'signin.html')
@@ -34,14 +33,12 @@ def signup(request):
 
 		login(request, user)
 
-		from django.http import HttpResponse
 		return HttpResponse('Conta criada com sucesso.')
 	else:
 		return render(request, 'signup.html')
 
 def logout(request):
 	django_logout(request)
-	from django.http import HttpResponse
 	return HttpResponse('Desconectado com sucesso.')
 
 def ask(request):
@@ -55,7 +52,6 @@ def ask(request):
 
 		q = Question.objects.create(user=request.user, title=title, description=description)
 
-		from django.http import HttpResponse
 		return redirect('/question/' + str(q.id))
 	else:
 		return render(request, 'ask.html')
@@ -68,7 +64,6 @@ def question(request, qid):
 	if request.method == 'POST':
 		text = request.POST.get('text')
 		a = Answer.objects.create(user=request.user, question=q, text=text)
-		from django.http import HttpResponse
 		return HttpResponse('Pergunta respondida com sucesso.')
 	else:
 		if request.user.is_authenticated:
