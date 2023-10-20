@@ -14,8 +14,15 @@
 
 		{% include "includes/navbar.html" %}
 
-		<img id="profile_picture" src="{{ user_profile.image.url }}">
-		<span>{{ user_profile.user.username }}</span>
+		<div id="se-1">
+			<img id="profile_picture" src="{{ user_profile.image.url }}">
+			<br>
+			<span>{{ user_profile.user.username }}</span>
+		</div>
+		
+		<div id="date_joined">
+			<p>Entrou em {{ user_profile.user.date_joined }}</p>
+		</div>
 
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
 	</body>
