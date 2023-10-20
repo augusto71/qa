@@ -23,7 +23,7 @@
 					{{ question.user.username }}
 				</div>
 				<h2>{{ question.title }}</h2>
-				<span>{{ question.pub_date|naturaltime }}</span>
+				<span class="text-secondary">{{ question.pub_date|naturaltime }}</span>
 			</div>
 			<div>
 				<pre>{{ question.description }}</pre>
@@ -36,7 +36,7 @@
 							<img class="answer_creator_profile" src="{% get_user_profile_photo answer.user.id %}">
 							{{ answer.user.username }}
 						</div>
-						<span>{{ question.pub_date|naturaltime }}</span>
+						<span class="text-secondary">{{ answer.pub_date|naturaltime }}</span>
 						<div>
 							<pre>{{ answer.text }}</pre>
 						</div>
