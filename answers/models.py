@@ -25,6 +25,7 @@ class Question(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	title = models.CharField(max_length=150)
 	description = models.TextField(max_length=4000)
+	pub_date = models.DateTimeField(auto_now_add=True, null=True)
 
 class Answer(models.Model):
 	'''
@@ -33,3 +34,4 @@ class Answer(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	question = models.ForeignKey(Question, on_delete=models.CASCADE)
 	text = models.TextField(max_length=4000)
+	pub_date = models.DateTimeField(auto_now_add=True, null=True)

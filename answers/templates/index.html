@@ -1,3 +1,4 @@
+{% load humanize %}
 {% load static %}
 
 <!doctype html>
@@ -20,7 +21,7 @@
 					<div class="card-body">
 						<a href="/user/{{ question.user.username }}">{{ question.user.username }}</a>
 						<span>&middot</span>
-						<small>perguntado x minutos atrás.</small><br>
+						<small>{{ question.pub_date |naturaltime }}</small><br>
 						<a href="/question/{{ question.id }}">{{ question.title }}</a>
 						<pre>{{ question.description }}</pre>
 					</div>
