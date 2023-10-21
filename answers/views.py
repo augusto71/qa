@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.http import HttpResponse
+from django.http import Http404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.models import User
@@ -90,7 +91,13 @@ def ask(request):
 
 def question(request, qid):
 
-	q = Question.objects.get(id=qid)
+	q = Question.objects.filter(id=qid)
+
+	if not q.exists():
+		raise Http404('Questão não encontrada.')
+	else:
+		q = q.first()
+
 	answers = Answer.objects.filter(question=q)
 
 	if request.method == 'POST':
@@ -115,7 +122,13 @@ def question(request, qid):
 		return render(request, 'question.html', {'question': q, 'answers': answers, 'response_form': response_form})
 
 def user_profile(request, username):
-	user = User.objects.get(username=username)
+	user = User.objects.filter(username=username)
+
+	if not user.exists():
+		raise Http404('Usuário não encontrado.')
+	else:
+		user = user.first()
+
 	up = UserProfile.objects.get(user=user)
 
 	return render(request, 'user_profile.html', {'user_profile': up})
