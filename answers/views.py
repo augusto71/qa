@@ -102,7 +102,7 @@ def question(request, qid):
 			return HttpResponse('Resposta vazia ou com mais de %d caracteres.' % (max_answer_length))
 
 		a = Answer.objects.create(user=request.user, question=q, text=text)
-		return HttpResponse('Pergunta respondida com sucesso.')
+		return render(request, 'includes/answer.html', {'answer': a})
 	else:
 		if request.user.is_authenticated:
 			if Answer.objects.filter(question=q, user=request.user).exists():

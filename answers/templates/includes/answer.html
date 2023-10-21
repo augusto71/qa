@@ -1,0 +1,11 @@
+{% load humanize %}
+{% load user_profile_photo %}
+
+<div>
+	<img class="answer_creator_profile" src="{% get_user_profile_photo answer.user.id %}">
+	{{ answer.user.username }}
+</div>
+<span class="text-secondary">{{ answer.pub_date|naturaltime }}</span>
+<div>
+	<pre>{{ answer.text }}</pre>
+</div>
