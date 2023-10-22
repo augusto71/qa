@@ -138,6 +138,9 @@ def index(request):
 
 	page_number = request.GET.get('page')
 
+	if not page_number:
+		page_number = 1
+
 	questions_page = Paginator(Question.objects.all().order_by('-id'), 3)
 
 	page = questions_page.page(page_number)
