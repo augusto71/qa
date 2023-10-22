@@ -5,6 +5,7 @@ from django.http import Http404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
 
 from .models import Question
 from .models import Answer
@@ -135,6 +136,10 @@ def user_profile(request, username):
 
 def index(request):
 
-	questions = Question.objects.all().order_by('-id')
+	page_number = request.GET.get('page')
 
-	return render(request, 'index.html', {'questions': questions})
+	questions_page = Paginator(Question.objects.all().order_by('-id'), 3)
+
+	page = questions_page.page(page_number)
+
+	return render(request, 'index.html', {'questions': page.object_list, 'page': page})

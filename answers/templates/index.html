@@ -27,6 +27,13 @@
 					</div>
 				</div>
 			{% endfor %}
+
+			{% if page.has_previous %}
+				<a href="/?page={{ page.previous_page_number }}">Anterior</a>
+			{% endif %}
+			{% if page.has_next %}
+				<a href="/?page={{ page.next_page_number }}">Próximo</a>
+			{% endif %}
 		</div>
 
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
