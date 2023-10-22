@@ -4,7 +4,7 @@ Um site de perguntas e respostas escrito em Python/Django.
 
 ## Começando
 
-Estas instruções fornecerão uma cópia do projeto em funcionamento em seu computador local para fins de desenvolvimento e teste.
+Para rodar o site no seu computador para fins de desenvolvimento e teste, use os seguintes comandos:
 
 `git clone https://github.com/augusto71/qa`
 
@@ -16,7 +16,7 @@ Estas instruções fornecerão uma cópia do projeto em funcionamento em seu com
 
 Crie um arquivo chamado `.env` na raíz do projeto (onde fica o script `manage.py`) com o seguinte conteúdo:
 
-SECRET_KEY = 'chave-secreta-aqui'
+`SECRET_KEY = 'chave-secreta-aqui'`
 
 Para rodar o servidor local, use:
 
@@ -34,6 +34,6 @@ Os pré-requisitos estão no arquivo requirements.txt na raíz do projeto.
 
 * [Django](https://www.djangoproject.com/) - O framework web usado
 
-## Author
+## Autor
 
 * [Erick Augusto](https://github.com/augusto71)
