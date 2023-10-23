@@ -10,6 +10,7 @@ from django.core.paginator import Paginator
 from .models import Question
 from .models import Answer
 from .models import UserProfile
+from .models import UserProfileForm
 
 def signin(request):
 	if request.method == 'POST':
@@ -146,3 +147,20 @@ def index(request):
 	page = questions_page.page(page_number)
 
 	return render(request, 'index.html', {'questions': page.object_list, 'page': page})
+
+def edit_user_profile(request):
+
+	if request.method == 'POST':
+
+		user_profile = UserProfile.objects.get(user=request.user)
+
+		form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
+
+		if form.is_valid():
+			form.save()
+
+		return redirect('/user/' + request.user.username)
+
+	form = UserProfileForm(instance=request.user)
+
+	return render(request, 'edit_user_profile.html', {'form': form})

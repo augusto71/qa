@@ -8,6 +8,7 @@ Este módulo contêm os seguintes modelos:
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.forms import ModelForm
 
 class UserProfile(models.Model):
 	'''
@@ -35,3 +36,11 @@ class Answer(models.Model):
 	question = models.ForeignKey(Question, on_delete=models.CASCADE)
 	text = models.TextField(max_length=4000)
 	pub_date = models.DateTimeField(auto_now_add=True, null=True)
+
+class UserProfileForm(ModelForm):
+	'''
+	Representa um formulário para criar ou modificar um UserProfile.
+	'''
+	class Meta:
+		model = UserProfile
+		fields = ['image']
