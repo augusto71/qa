@@ -22,7 +22,7 @@
 			<div>
 				<div>
 					<img id="question_creator_profile" src="{% get_user_profile_photo question.user.id %}">
-					{{ question.user.username }}
+					<a href="/user/{{ question.user.username }}" class="link-secondary">{{ question.user.username }}</a>
 				</div>
 				<h2>{{ question.title }}</h2>
 				<span class="text-secondary">{{ question.pub_date|naturaltime }}</span>

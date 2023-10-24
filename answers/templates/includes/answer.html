@@ -3,7 +3,7 @@
 
 <div>
 	<img class="answer_creator_profile" src="{% get_user_profile_photo answer.user.id %}">
-	{{ answer.user.username }}
+	<a href="/user/{{ answer.user.username }}" class="link-secondary">{{ answer.user.username }}</a>
 </div>
 <span class="text-secondary">{{ answer.pub_date|naturaltime }}</span>
 <div>
