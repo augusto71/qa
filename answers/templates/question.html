@@ -52,7 +52,7 @@
 				<form method="post" id="response_form" onsubmit="return false;">
 					{% csrf_token %}
 					<textarea name="text" placeholder="Escreva uma resposta." maxlength="4000" required="required"></textarea>
-					<input type="submit" value="Publicar" id="send_answer">
+					<input type="submit" value="Publicar" id="send_answer" class="btn btn-secondary">
 				</form>
 			{% endif %}
 		</div>
