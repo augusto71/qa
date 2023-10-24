@@ -11,6 +11,8 @@
 		<link rel="stylesheet" href="{% static 'css/question.css' %}">
 
 		<title>{{ question.title }}</title>
+
+		<script src="https://kit.fontawesome.com/e6aba9e141.js" crossorigin="anonymous"></script>
 	</head>
 	<body>
 
@@ -28,6 +30,17 @@
 			<div>
 				<pre>{{ question.description }}</pre>
 			</div>
+			{% if request.user.is_authenticated %}
+				{% if request.user == question.user %}
+					<form method="post" action="/delete_question">
+						{% csrf_token %}
+						<input type="hidden" name="qid" value="{{ question.id }}">
+						<button type="submit" class="send_button">
+						<i class="fa-solid fa-trash"></i>
+						</button>
+					</form>
+				{% endif %}
+			{% endif %}
 			
 			<div id="answers">
 				{% if answers %}

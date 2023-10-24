@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.http import HttpResponse
+from django.http import HttpResponseBadRequest
 from django.http import Http404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as django_logout
@@ -164,3 +165,18 @@ def edit_user_profile(request):
 	form = UserProfileForm(instance=request.user)
 
 	return render(request, 'edit_user_profile.html', {'form': form})
+
+def delete_question(request):
+	if request.method != 'POST':
+		return HttpResponseBadRequest()
+
+	qid = request.POST.get('qid')
+
+	q = Question.objects.get(id=qid)
+
+	if request.user != q.user:
+		return HttpResponseBadRequest()
+
+	q.delete()
+
+	return HttpResponse('/')
