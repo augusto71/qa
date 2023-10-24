@@ -32,12 +32,10 @@
 			</div>
 			{% if request.user.is_authenticated %}
 				{% if request.user == question.user %}
-					<form method="post" action="/delete_question">
+					<form id="delete_question" method="post" action="/delete_question">
 						{% csrf_token %}
 						<input type="hidden" name="qid" value="{{ question.id }}">
-						<button type="submit" class="send_button">
-						<i class="fa-solid fa-trash"></i>
-						</button>
+						<i class="fa-solid fa-trash" onclick="delete_question.submit();"></i>
 					</form>
 				{% endif %}
 			{% endif %}

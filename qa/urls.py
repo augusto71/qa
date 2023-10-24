@@ -32,6 +32,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('edit_user_profile', views.edit_user_profile, name='edit_user_profile'),
     path('delete_question', views.delete_question, name='delete_question'),
+    path('delete_answer', views.delete_answer, name='delete_answer'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

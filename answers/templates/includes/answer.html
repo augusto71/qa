@@ -9,3 +9,12 @@
 <div>
 	<pre>{{ answer.text }}</pre>
 </div>
+{% if request.user.is_authenticated %}
+	{% if request.user == answer.user %}
+		<form id="delete_answer" method="post" action="/delete_answer">
+			{% csrf_token %}
+			<input type="hidden" name="answer_id" value="{{ answer.id }}">
+			<i class="fa-solid fa-trash" onclick="delete_answer.submit();"></i>
+		</form>
+	{% endif %}
+{% endif %}

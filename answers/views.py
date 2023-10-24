@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.http import HttpResponseBadRequest
+from django.http import HttpResponseForbidden
 from django.http import Http404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as django_logout
@@ -175,8 +176,24 @@ def delete_question(request):
 	q = Question.objects.get(id=qid)
 
 	if request.user != q.user:
-		return HttpResponseBadRequest()
+		return HttpResponseForbidden()
 
 	q.delete()
 
-	return HttpResponse('/')
+	return redirect('/')
+
+def delete_answer(request):
+	if request.method != 'POST':
+		return HttpResponseBadRequest()
+
+	answer_id = request.POST.get('answer_id')
+
+	a = Answer.objects.get(id=answer_id)
+
+	if request.user != a.user:
+		return HttpResponseForbidden()
+
+	qid = a.question.id
+	a.delete()
+
+	return redirect('/question/%d' % (qid))
