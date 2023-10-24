@@ -163,7 +163,8 @@ def edit_user_profile(request):
 
 		return redirect('/user/' + request.user.username)
 
-	form = UserProfileForm(instance=request.user)
+	user_profile = UserProfile.objects.get(user=request.user)
+	form = UserProfileForm(instance=user_profile)
 
 	return render(request, 'edit_user_profile.html', {'form': form})
 

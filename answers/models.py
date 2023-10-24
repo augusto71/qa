@@ -17,6 +17,7 @@ class UserProfile(models.Model):
 
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	image = models.ImageField(default='profile_pics/default.jpg', upload_to='profile_pics')
+	bio = models.CharField(max_length=255, null=True)
 
 class Question(models.Model):
 	'''
@@ -43,4 +44,4 @@ class UserProfileForm(ModelForm):
 	'''
 	class Meta:
 		model = UserProfile
-		fields = ['image']
+		fields = ['image', 'bio']

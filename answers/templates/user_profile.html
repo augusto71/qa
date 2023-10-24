@@ -18,6 +18,9 @@
 			<img id="profile_picture" src="{{ user_profile.image.url }}">
 			<br>
 			<span>{{ user_profile.user.username }}</span>
+			{% if user_profile.bio %}
+				<p>{{ user_profile.bio }}</p>
+			{% endif %}
 			{% if request.user == user_profile.user %}
 				<br>
 				<a href="/edit_user_profile">Editar perfil</a>
