@@ -1,3 +1,5 @@
+import os
+
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.http import HttpResponse
@@ -156,10 +158,15 @@ def edit_user_profile(request):
 
 		user_profile = UserProfile.objects.get(user=request.user)
 
+		last_profile_photo = os.path.basename(user_profile.image.path)
+
 		form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
 
 		if form.is_valid():
 			form.save()
+			if len(request.FILES) > 0 and last_profile_photo != 'default.jpg':
+				os.remove(last_profile_photo)
+
 
 		return redirect('/user/' + request.user.username)
 
