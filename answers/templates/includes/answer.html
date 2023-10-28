@@ -7,7 +7,7 @@
 </div>
 <span class="text-secondary">{{ answer.pub_date|naturaltime }}</span>
 <div>
-	<pre>{{ answer.text }}</pre>
+	<p>{{ answer.text }}</p>
 </div>
 {% if request.user.is_authenticated %}
 	{% if request.user == answer.user %}
