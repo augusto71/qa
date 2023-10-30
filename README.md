@@ -2,6 +2,10 @@
 
 Um site de perguntas e respostas escrito em Python/Django.
 
+## Imagens
+
+![Captura de tela de uma pergunta e suas respostas.](/images/screenshot-01.jpg)
+
 ## Começando
 
 Para rodar o site no seu computador para fins de desenvolvimento e teste, use os seguintes comandos:
