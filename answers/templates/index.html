@@ -15,6 +15,14 @@
 
 		{% include "includes/navbar.html" %}
 
+		{% if messages %}
+			{% for message in messages %}
+				{% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+					<div class="alert alert-success">{{ message }}</div>
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+
 		<div>
 			{% for question in questions %}
 				<div class="card question">

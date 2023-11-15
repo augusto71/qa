@@ -9,6 +9,7 @@ from django.http import Http404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.models import User
+from django.contrib import messages
 from django.core.paginator import Paginator
 
 from .models import Question
@@ -59,7 +60,8 @@ def signup(request):
 
 		login(request, user)
 
-		return HttpResponse('Conta criada com sucesso.')
+		messages.success(request, 'Conta criada com sucesso.')
+		return redirect('/')
 	else:
 		return render(request, 'signup.html')
 
