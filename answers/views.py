@@ -19,7 +19,10 @@ from .models import Answer
 from .models import UserProfile
 from .models import UserProfileForm
 
+
 def signin(request):
+	'''Página de login do usuário.'''
+
 	if request.method == 'POST':
 		username = request.POST.get('username')
 		password = request.POST.get('password')
@@ -32,7 +35,10 @@ def signin(request):
 	else:
 		return render(request, 'signin.html')
 
+
 def signup(request):
+	'''Página de registro de conta.'''
+
 	if request.method == 'POST':
 		username = request.POST.get('username')
 		email = request.POST.get('email')
@@ -67,11 +73,17 @@ def signup(request):
 	else:
 		return render(request, 'signup.html')
 
+
 def logout(request):
+	'''Desconecta o usuário.'''
+
 	django_logout(request)
 	return redirect('/')
 
+
 def ask(request):
+	'''Página de fazer pergunta.'''
+
 	if request.method == 'POST':
 		title = request.POST.get('title')
 		description = request.POST.get('description')
@@ -99,7 +111,9 @@ def ask(request):
 		else:
 			return HttpResponse('<a href="/signin">Faça login</a> para fazer uma pergunta.')
 
+
 def question(request, qid):
+	'''Página de uma questão.'''
 
 	q = Question.objects.filter(id=qid)
 
@@ -131,7 +145,10 @@ def question(request, qid):
 
 		return render(request, 'question.html', {'question': q, 'answers': answers, 'response_form': response_form})
 
+
 def user_profile(request, username):
+	'''Página de perfil do usuário.'''
+
 	user = User.objects.filter(username=username)
 
 	if not user.exists():
@@ -143,7 +160,9 @@ def user_profile(request, username):
 
 	return render(request, 'user_profile.html', {'user_profile': up})
 
+
 def index(request):
+	'''Página inicial.'''
 
 	page_number = request.GET.get('page')
 
@@ -156,7 +175,9 @@ def index(request):
 
 	return render(request, 'index.html', {'questions': page.object_list, 'page': page})
 
+
 def edit_user_profile(request):
+	'''Página para que o usuário possa editar o próprio perfil.'''
 
 	if request.method == 'POST':
 
@@ -179,7 +200,10 @@ def edit_user_profile(request):
 
 	return render(request, 'edit_user_profile.html', {'form': form})
 
+
 def delete_question(request):
+	'''Apaga uma questão.'''
+
 	if request.method != 'POST':
 		return HttpResponseBadRequest()
 
@@ -194,7 +218,10 @@ def delete_question(request):
 
 	return redirect('/')
 
+
 def delete_answer(request):
+	'''Apaga uma resposta.'''
+
 	if request.method != 'POST':
 		return HttpResponseBadRequest()
 
