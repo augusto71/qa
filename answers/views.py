@@ -1,3 +1,5 @@
+'''Este módulo contêm as views do aplicativo "answers".'''
+
 import os
 
 from django.shortcuts import render
