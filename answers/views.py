@@ -46,7 +46,7 @@ def signup(request):
 	'''Página de registro de conta.'''
 
 	if request.method == 'POST':
-		username = request.POST.get('username')
+		username = request.POST.get('username').strip()
 		email = request.POST.get('email')
 		password = request.POST.get('password')
 
