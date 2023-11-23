@@ -1,6 +1,9 @@
 '''Este módulo contêm as views do aplicativo "answers".'''
 
 import os
+import datetime
+import string
+import random
 
 from django.shortcuts import render
 from django.shortcuts import redirect
@@ -13,9 +16,12 @@ from django.contrib.auth import logout as django_logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.paginator import Paginator
+from django.core.mail import send_mail
+from django.conf import settings
 
 from .models import Question
 from .models import Answer
+from .models import Code
 from .models import UserProfile
 from .models import UserProfileForm
 
@@ -236,3 +242,65 @@ def delete_answer(request):
 	a.delete()
 
 	return redirect('/question/%d' % (qid))
+
+
+def recover_password(request):
+	'''view para recuperação de senha.'''
+
+	if request.method == 'POST':
+
+		allowed_hosts = [host.upper() for host in settings.ALLOWED_HOSTS]
+
+		if request.get_host().upper() not in allowed_hosts:
+			return HttpResponseForbidden()
+
+		receiver = request.POST.get('email')
+
+		user = User.objects.filter(email=receiver)
+		if not user.exists():
+			return render(request, 'email-sent-to-change password.html')
+		user = user.first()
+
+		new_code = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
+
+		code_obj = Code.objects.create(user=user, code=new_code)
+		code = code_obj.code
+
+		email_message = 'Use este link para recuperar sua senha: http://%s/change-password?code=%s' % (request.get_host(), code)
+
+		send_mail(subject='Recuperação de senha', message=email_message, from_email=settings.EMAIL_HOST_USER, recipient_list=[receiver])
+
+		return render(request, 'email-sent-to-change password.html')
+
+	return render(request, 'recover-password.html')
+
+
+def change_password(request):
+	'''view para alteração de senha.'''
+
+	code = Code.objects.filter(code=request.GET.get('code'))
+
+	if code.exists():
+		code = code.first()
+	else:
+		return HttpResponse('Código inexistente.')
+
+	max_code_duration = 3600 # segundos
+
+	timediff = datetime.datetime.utcnow() - code.creation_date.replace(tzinfo=None)
+
+	if timediff.seconds > max_code_duration:
+		code.delete()
+		return HttpResponse('Código expirado.')
+
+	if request.method == 'POST':
+		user = code.user
+		user.set_password(request.POST.get('password'))
+		user.save()
+
+		code.delete()
+
+		messages.success(request, 'Senha alterada com sucesso.')
+		return redirect('signin')
+
+	return render(request, 'change-password.html')

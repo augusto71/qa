@@ -33,6 +33,8 @@ urlpatterns = [
     path('edit_user_profile', views.edit_user_profile, name='edit_user_profile'),
     path('delete_question', views.delete_question, name='delete_question'),
     path('delete_answer', views.delete_answer, name='delete_answer'),
+    path('recover-password', views.recover_password, name='recover_password'),
+    path('change-password', views.change_password, name='change_password'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -38,6 +38,12 @@ class Answer(models.Model):
 	text = models.TextField(max_length=4000)
 	pub_date = models.DateTimeField(auto_now_add=True, null=True)
 
+class Code(models.Model):
+	'''Representa o código de verificação do usuário para alteração de senha.'''
+	code = models.CharField(max_length=255)
+	creation_date = models.DateTimeField(auto_now_add=True, null=True) # a data de criação é usada para verificar se o código já expirou ou não.
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+
 class UserProfileForm(ModelForm):
 	'''
 	Representa um formulário para criar ou modificar um UserProfile.
